@@ -10,7 +10,6 @@ interface Props {
 
 export const Layout: FC<Props> = ({ children, title }) => {
 
-
     return (
         <>
 

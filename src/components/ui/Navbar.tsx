@@ -1,7 +1,7 @@
 import { FC } from "react"
 import styles from "@/styles/Navbar.module.css";
-import { useTheme } from "@nextui-org/react";
-
+import { Grid, Text, useTheme } from "@nextui-org/react";
+import Link from "next/link";
 
 export const Navbar: FC = () => {
 
@@ -13,7 +13,14 @@ export const Navbar: FC = () => {
                 backgroundColor: theme?.colors.red100.value
             }}
         >
-            Hola
+            <Grid.Container alignItems="center" justify="space-between">
+                <Link href="/" passHref>
+                    <Text> Logo </Text>
+                </Link>
+                <Link href="/favorites" passHref>
+                    <Text> Favoritos </Text>
+                </Link>
+            </Grid.Container>
         </div>
     )
 }
