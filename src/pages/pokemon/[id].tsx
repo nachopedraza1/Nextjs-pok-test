@@ -1,13 +1,11 @@
-import { useState } from 'react';
-
-import Image from 'next/image';
-import { NextPage, GetStaticProps, GetStaticPaths } from 'next'
-import { Button, Card, Container, Grid, Text } from '@nextui-org/react';
-
-import { pokeApi } from '@/api';
-import { Layout } from '@/components/layouts/Layout';
-import { localFavorites } from '@/utils';
-import { Pokemon } from '@/interfaces/interfaces';
+import { pokeApi } from "@/api";
+import { Layout } from "@/components/layouts/Layout"
+import { Pokemon } from "@/interfaces/pokemon-single";
+import { localFavorites } from "@/utils";
+import { Button, Card, Container, Grid, Text } from "@nextui-org/react";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import Image from "next/image";
+import { useState } from "react";
 
 interface Props {
     pokemon: Pokemon;
@@ -15,19 +13,19 @@ interface Props {
 
 const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 
-    const [isInFavorites, setIsInFavorites] = useState(localFavorites.existInfavorites(pokemon.id))
+    const [inFavorites, setInFavorites] = useState(localFavorites.existInFavorites(pokemon.id));
 
     const toggleFavorite = () => {
         localFavorites.toggleFavorite(pokemon.id);
-        setIsInFavorites(!isInFavorites)
+        setInFavorites(!inFavorites);
     }
 
     return (
-        <Layout title={pokemon.name}>
+        <Layout title='Algun pokémon'>
 
             <Grid.Container css={{ marginTop: '5px' }} gap={2}>
                 <Grid xs={12} sm={4} >
-                    <Card isPressable css={{ padding: '30px' }}>
+                    <Card isHoverable css={{ padding: '30px' }}>
                         <Card.Body>
                             <Card.Image
                                 src={pokemon.sprites.other?.dream_world.front_default || '/no-image.png'}
@@ -46,10 +44,10 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 
                             <Button
                                 color="gradient"
-                                ghost={!isInFavorites}
+                                ghost={!inFavorites}
                                 onPress={toggleFavorite}
                             >
-                                {isInFavorites ? 'En Favoritos' : 'Guardar en favoritos'}
+                                {inFavorites ? 'En Favoritos' : 'Guardar en favoritos'} 
                             </Button>
                         </Card.Header>
 
@@ -92,26 +90,24 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
                 </Grid>
 
             </Grid.Container>
-
-
-
-        </Layout >
+        </Layout>
     )
 }
 
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
-    const pokemonPages = [...Array(151)].map((value, index) => (`${index + 1}`))
+    const array151 = [...Array(151)].map((value, index) => `${index + 1}`)
 
     return {
-        paths: pokemonPages.map(id => ({
-            params: { id }
+        paths: array151.map(id => ({
+            params: {
+                id
+            }
         })),
-        fallback: false,
+        fallback: false
     }
 }
-
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
 

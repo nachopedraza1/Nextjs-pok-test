@@ -1,29 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { NextPage } from 'next'
 
 import { Layout } from '@/components/layouts/Layout'
-import { FavoritePokemons, NoFavorites } from '@/components/pokemon'
-import { localFavorites } from '@/utils'
+import { Container, Text } from '@nextui-org/react'
 
 const FavoritesPage: NextPage = () => {
-
-    const [favoritesPokemons, setFavoritesPokemons] = useState([]);
-
-    useEffect(() => {
-        setFavoritesPokemons(localFavorites.getPokemons());
-    }, [])
-
     return (
         <Layout title='Pokémons - Favoritos'>
-
-            {
-                favoritesPokemons.length === 0
-                    ? (<NoFavorites />)
-                    : (<FavoritePokemons pokemons={favoritesPokemons} />)
-            }
-
+            <Container css={{
+                display: 'flex',
+                flexDirection: 'column',
+                height: 'calc(100vh - 100px)',
+                alignItems: 'center',
+                justifyContent: 'center',
+                alignSelf: 'center',
+            }}>
+                <Text h1> No hay favoritos </Text>
+            </Container>
         </Layout>
     )
 }
-
-export default FavoritesPage;

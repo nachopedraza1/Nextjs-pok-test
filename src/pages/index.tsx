@@ -57,4 +57,8 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   }
 }
 
+<<<<<<< HEAD
 export default HomePage
+=======
+export default HomePage;
+>>>>>>> 21acb5fa8640efaf0b2dd65fc9d11c1042a1bcf6
